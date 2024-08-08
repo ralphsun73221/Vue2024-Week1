@@ -54,7 +54,23 @@ const MENU_LIST = ref([
   }
 ])
 
+const TEMP = ref({
+  id: '',
+  itemName: ''
+})
+
 // 方法
+const ITEM_NAME_EDIT = (menu) => {
+  TEMP.value = { ...menu }
+  console.log(TEMP.value)
+}
+
+const ITEM_NAME_CONFIRM_EDIT = () => {
+  const INDEX = MENU_LIST.value.findIndex((item) => item.id === TEMP.value.id)
+  console.log(INDEX)
+  MENU_LIST.value[INDEX] = TEMP.value
+  TEMP.value = {}
+}
 </script>
 
 <template>
@@ -71,7 +87,10 @@ const MENU_LIST = ref([
       </thead>
       <tbody>
         <tr v-for="menu in MENU_LIST" :key="menu.id">
-          <th scope="row">{{ menu.itemName }}</th>
+          <th scope="row">
+            {{ menu.itemName }}<br />
+            <button type="button" @click="ITEM_NAME_EDIT(menu)">修改品名</button>
+          </th>
           <td>
             <small>{{ menu.description }}</small>
           </td>
@@ -84,6 +103,12 @@ const MENU_LIST = ref([
         </tr>
       </tbody>
     </table>
+    <div v-if="TEMP.id">
+      <h1>品名修改</h1>
+      <p>當前品名：{{ TEMP.itemName }}</p>
+      <input type="text" v-model="TEMP.itemName" />
+      <button type="button" @click="ITEM_NAME_CONFIRM_EDIT">更新品名</button>
+    </div>
   </div>
 </template>
 
