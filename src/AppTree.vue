@@ -108,6 +108,7 @@ const ITEM_NAME_CONFIRM_EDIT = () => {
       <p>當前品名：{{ TEMP.itemName }}</p>
       <input type="text" v-model="TEMP.itemName" />
       <button type="button" @click="ITEM_NAME_CONFIRM_EDIT">更新品名</button>
+      <button type="button" @click="TEMP = {}">取消修改</button>
     </div>
   </div>
 </template>
